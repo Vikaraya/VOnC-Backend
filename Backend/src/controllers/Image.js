@@ -1,19 +1,20 @@
-const Image = require("../models/Image");
+const ImageCategory = require('../models/Image');
 
-const getImages = async (req, res) => {
+const getImagesByCategory = async (req, res) => {
+  const { category } = req.params;
+
   try {
-    const images = await Image.find();
-    if (!images.length) {
-      return res.status(404).json({ message: "No images found." });
+    const categoryData = await ImageCategory.findOne({ category });
+
+    if (!categoryData) {
+      return res.status(404).json({ message: "Category not found" });
     }
 
-    res.status(200).json(images);
+    res.status(200).json(categoryData.images);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error fetching images." });
+    console.error('Error fetching images:', error);
+    res.status(500).json({ message: 'Error fetching images' });
   }
 };
 
-
-module.exports = { getImages };
-
+module.exports = { getImagesByCategory };
