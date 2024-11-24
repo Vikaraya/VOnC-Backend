@@ -4,7 +4,7 @@ const cors = require("cors")
 const dbConnection = require("./src/dbConnection");
 const signupController = require("./src/controllers/signup");
 const loginController = require("./src/controllers/login");
-const imageController = require("./src/controllers/Image"); // Add image controller
+const imageController = require("./src/controllers/Image");
 const app = express();
 dotenv.config();
 app.use(express.json());
