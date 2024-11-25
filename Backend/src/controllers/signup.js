@@ -1,24 +1,33 @@
 const bcrypt = require("bcryptjs");
 const User = require("../models/userSchema"); 
-const { validateEmail, validatePassword } = require("../validation");
+const { validateEmail, validatePassword, validatePhoneNumber } = require("../validation");
 
 const signupController = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, phoneNumber } = req.body;
 
-  if (!email || !password) {
-    return res.status(400).json({ message: "Email and password are required" });
+  
+  if (!email || !password || !phoneNumber) {
+    return res.status(400).json({ message: "Email, password, and phone number are required" });
   }
 
+  
   if (!validateEmail(email)) {
     return res
       .status(400)
       .json({ message: "Please provide a valid email address" });
   }
 
+
   if (!validatePassword(password)) {
     return res.status(400).json({
       message:
         "Password must be at least 6 characters long, contain one uppercase letter, one number, and one special character",
+    });
+  }
+
+  if (!validatePhoneNumber(phoneNumber)) {
+    return res.status(400).json({
+      message: "Please provide a valid phone number (10 digits required)",
     });
   }
 
@@ -33,6 +42,7 @@ const signupController = async (req, res) => {
     const newUser = new User({
       email,
       password: hashedPassword,
+      phoneNumber,
     });
 
     await newUser.save();
