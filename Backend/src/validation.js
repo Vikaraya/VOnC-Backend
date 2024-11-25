@@ -9,7 +9,13 @@ const validateEmail = (email) => {
   return emailRegex.test(email);
 };
 
+const validatePhoneNumber = (phoneNumber) => {
+  const phoneRegex = /^\d{10}$/;
+  return phoneRegex.test(phoneNumber);
+};
+
 module.exports = {
   validatePassword,
   validateEmail,
+  validatePhoneNumber,
 };
