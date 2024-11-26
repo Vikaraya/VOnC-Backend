@@ -1,7 +1,8 @@
 const AWS = require("aws-sdk");
 const dotenv = require("dotenv")
 const crypto = require("crypto");
-const db = require("../dbConnection");
+const { validatePhoneNumber } = require("../validation");
+
 dotenv.config();
 
 
