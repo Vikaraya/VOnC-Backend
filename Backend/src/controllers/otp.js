@@ -24,6 +24,12 @@ exports.sendOTP = async (req, res) => {
     return res.status(400).json({ message: "Phone number is required" });
   }
 
+    if (!validatePhoneNumber(phoneNumber)) {
+    return res.status(400).json({
+      message: "Please provide a valid phone number (10 digits required)",
+    });
+  }
+
   
   const otp = crypto.randomInt(100000, 999999).toString();
   console.log(otp)
