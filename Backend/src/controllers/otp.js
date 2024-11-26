@@ -18,17 +18,17 @@ let otpCache = {};
 
 exports.sendOTP = async (req, res) => {
   const { phoneNumber } = req.body;
-  //console.log(phoneNumber)
+  
 
   if (!phoneNumber) {
     return res.status(400).json({ message: "Phone number is required" });
   }
 
-  // Generate a random 6-digit OTP
+  
   const otp = crypto.randomInt(100000, 999999).toString();
   console.log(otp)
 
-  // Save OTP to database or in-memory cache
+ 
   otpCache[phoneNumber] = { otp, expiresAt: Date.now() + 300000 }; // 5 min expiry
 
   const params = {
@@ -54,7 +54,7 @@ exports.validateOTP = async (req, res) => {
       .json({ message: "Phone number and OTP are required" });
   }
 
-  // Check OTP from database or in-memory cache
+  
   const savedOTP = otpCache[phoneNumber];
 
   if (!savedOTP) {
