@@ -13,11 +13,6 @@ const userSchema = new mongoose.Schema({
         required: [true, "Password is required"],
         trim: true
     },
-    phoneNumber: {
-        type: String,
-        required: [true, "Phone number is required"],
-        trim: true
-    }
 });
 
 module.exports = mongoose.model("user", userSchema);
